@@ -1,69 +1,83 @@
 #include <iostream>
-#include "Ej5.h"
+#include <stdexcept> // Para std::invalid_argument
 using namespace std;
 
-/*Crear una clase calculadora, dicha clase debe tener los métodos sumar, restar,
-dividir, multiplicar que realizarán operaciones en dos propiedades A y B. En el
-método dividir verifique que el divisor no es 0. Si el divisor es 0, arroje una
- excepción.*/
+class calcu {
+private:
+    int num1, num2;
+public:
+    calcu(int n1, int n2);
+    int sumar();
+    int restar();
+    void dividir();
+    int multiplicar();
+};
 
+calcu::calcu(int n1, int n2) {
+    num1 = n1;
+    num2 = n2;
+}
 
- int main(){
-    int num, num1;
-    cout<<"Elija una opción:/n";
-    cout <<"sumar dos enteros (1) /n";
-    cout <<"restar dos enteros (2) /n";
-    cout <<"dividir dos enteros (3) /n";
-    cout <<"multiplicar dos enteros (4) /n";
+int calcu::sumar() {
+    return num1 + num2;
+}
 
-    cin>>num;
-    switch (num){
+int calcu::restar() {
+    return num1 - num2;
+}
+
+void calcu::dividir() {
+    try {
+        if (num2 == 0) {
+            throw invalid_argument("división por cero");
+        }
+        else {
+            cout << "Resultado de la división: " << num1 / num2 << endl;
+        }
+    }
+    catch (const invalid_argument& e) {
+        cout << "Error: " << e.what() << endl;
+    }
+}
+
+int calcu::multiplicar() {
+    return num1 * num2;
+}
+
+int main() {
+    int num, num1, num2;
+
+    cout << "Elija una opción:\n";
+    cout << "1. Sumar dos enteros\n";
+    cout << "2. Restar dos enteros\n";
+    cout << "3. Dividir dos enteros\n";
+    cout << "4. Multiplicar dos enteros\n";
+
+    cin >> num;
+    cout << "Ingrese el entero nro 1: \n";
+    cin >> num1;
+    cout << "Ingrese el entero nro 2: \n";
+    cin >> num2;
+
+    calcu a(num1, num2);
+
+    switch (num) {
     case 1:
-        cout<<"ingrese el entero nro 1: /n";
-        cin>>num1;
-        cout<<"ingrese el entero nro 2: /n";
-        cin>>num;
-
-        calcu a(num1,num);
-        cout<<a.sumar();
-
+        cout << "Resultado de la suma: " << a.sumar() << endl;
         break;
-    
     case 2:
-        cout<<"ingrese el entero nro 1: /n";
-        cin>>num1;
-        cout<<"ingrese el entero nro 2: /n";
-        cin>>num;
-
-        calcu a(num1,num);
-        cout<<a.restar();
-
+        cout << "Resultado de la resta: " << a.restar() << endl;
         break;
     case 3:
-        cout<<"ingrese el dividendo nro 1: /n";
-        cin>>num1;
-        cout<<"ingrese el divisor nro 2: /n";
-        cin>>num;
-
-        calcu a();
-        a.dividir(num1,num);
+        a.dividir();
         break;
-    
     case 4:
-        cout<<"ingrese el entero nro 1: /n";
-        cin>>num1;
-        cout<<"ingrese el entero nro 2: /n";
-        cin>>num;
-
-        calcu a(num1,num);
-        cout<<a.multiplicar();
-
+        cout << "Resultado de la multiplicación: " << a.multiplicar() << endl;
         break;
-
     default:
+        cout << "Opción no válida" << endl;
         break;
     }
 
-    
-
- }
+    return 0;
+}
