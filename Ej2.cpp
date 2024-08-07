@@ -1,9 +1,15 @@
 #include <iostream>
 using namespace std;
 
-int main() {
+int main(){
 
-    cout << "Examen Final Prog 3" << endl;
+    int num=5;
+    int resul=1;
+    int algo=0;
 
-    return 0;
+    for(int i=num; i>0; i--){
+        resul*=i;
+    }
+
+    cout <<resul;
 }
