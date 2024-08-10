@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdexcept> // Para std::invalid_argument
 using namespace std;
 
 class calcu {
